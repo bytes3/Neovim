@@ -63,7 +63,7 @@ return {
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[s]earch [d]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[s]earch [r]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[s]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = '[f]ind existing buffers' })
+      vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = '[b]uffers' })
       vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = '[ ] Search Files' })
       vim.keymap.set('n', '<leader>sf', function()
         builtin.find_files { hidden = true, no_ignore = true }
