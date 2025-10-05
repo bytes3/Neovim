@@ -53,3 +53,5 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 vim.o.autoread = true
+
+vim.g.have_nerd_font = true
