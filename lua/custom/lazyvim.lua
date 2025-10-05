@@ -12,6 +12,27 @@ require('lazy').setup({
   rocks = {
     hererocks = true,
   },
+  {
+    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+    -- used for completion, annotations and signatures of Neovim apis
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        -- Load luvit types when the `vim.uv` word is found
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+        'lazy.nvim',
+      },
+    },
+  },
+
+  {
+    'rebelot/kanagawa.nvim',
+    config = function()
+      vim.cmd.colorscheme 'kanagawa'
+    end,
+  },
+
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is
