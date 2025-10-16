@@ -29,7 +29,7 @@ require('lazy').setup({
   {
     'rebelot/kanagawa.nvim',
     config = function()
-      vim.cmd.colorscheme 'kanagawa'
+      vim.cmd.colorscheme 'kanagawa-dragon'
     end,
   },
 
@@ -39,7 +39,7 @@ require('lazy').setup({
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
     'folke/tokyonight.nvim',
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    cond = false,
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       -- Load the colorscheme here

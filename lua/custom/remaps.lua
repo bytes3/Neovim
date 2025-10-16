@@ -16,7 +16,6 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagn
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [q]uickfix list' })
 vim.keymap.set('n', '<leader>td', toggle_diagnostic_drawing, { desc = 'Toggle [d]iagnostic line drawing' })
 
-
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
 vim.keymap.set({ 'n', 'v' }, '<leader>Y', [["+Y]])
 
@@ -32,11 +31,11 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 
 vim.keymap.set('n', '<leader>S', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[S]ubstitute the whole file' })
 
--- open new project
-vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
-
 -- don't save into \" register
 vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]])
 vim.keymap.set('x', '<leader>p', [["_dP]])
 
 vim.keymap.set('n', '<C-c>', ':w<CR>')
+
+vim.keymap.set({ 'n', 'v' }, '<C-b>', '<C-a>')
+vim.keymap.set({ 'n', 'v' }, 'g<C-b>', 'g<C-a>')

@@ -9,6 +9,12 @@ return {
       --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
       --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
+      require('mini.align').setup {
+        mappings = {
+          start = 'La',
+          start_with_preview = 'LA',
+        },
+      }
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
@@ -37,3 +43,29 @@ return {
     end,
   },
 }
+
+-- DEFAULTS KEYBINDING FOR ALIGN (La):
+-- {
+--   modifiers = {
+--     -- Main option modifiers
+--     ['s] = --<function: enter split pattern>,
+--     ['j'] = --<function: choose justify side>,
+--     ['m'] = --<function: enter merge delimiter>,
+--
+--     -- Modifiers adding pre-steps
+--     ['f'] = --<function: filter parts by entering Lua expression>,
+--     ['i'] = --<function: ignore some split matches>,
+--     ['p'] = --<function: pair parts>,
+--     ['t'] = --<function: trim parts>,
+--
+--     -- Delete some last pre-step
+--     ['<BS>'] = --<function: delete some last pre-step>,
+--
+--     -- Special configurations for common splits
+--     ['='] = --<function: enhanced setup for '='>,
+--     [','] = --<function: enhanced setup for ','>,
+--     ['|'] = --<function: enhanced setup for '|'>,
+--     [' '] = --<function: enhanced setup for ' '>,
+--   },
+--
+-- }
