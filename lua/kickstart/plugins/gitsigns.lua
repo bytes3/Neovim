@@ -1,14 +1,19 @@
 return {
   {
+    dependencies = {
+      'purarue/gitsigns-yadm.nvim',
+    },
     'lewis6991/gitsigns.nvim',
     opts = {
-      -- signs = {
-      --   add = { text = '+' },
-      --   change = { text = '~' },
-      --   delete = { text = '_' },
-      --   topdelete = { text = '‾' },
-      --   changedelete = { text = '~' },
-      -- },
+      _on_attach_pre = function(bufnr, callback)
+        if vim.fn.executable 'yadm' == 1 then
+          require('gitsigns-yadm').yadm_signs(callback, { bufnr = bufnr })
+        else
+          -- if optionally disabling the plugin, make sure to call
+          -- 'callback' with no arguments
+          callback()
+        end
+      end,
       current_line_blame = true,
       current_line_blame_opts = {
         virt_text = true,
@@ -61,9 +66,15 @@ return {
         map('n', '<leader>hD', function()
           gitsigns.diffthis '@'
         end, { desc = 'git [D]iff against last commit' })
+        map('n', '<leader>n', function()
+          gitsigns.nav_hunk('next', { preview = true, greedy = false })
+        end, { desc = 'git [n]ext hunk' })
+        map('n', '<leader>N', function()
+          gitsigns.nav_hunk('prev', { preview = true, greedy = false })
+        end, { desc = 'git [N] previous hunk' })
         -- Toggles
-        map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
-        map('n', '<leader>tD', gitsigns.preview_hunk_inline, { desc = '[T]oggle git show [D]eleted' })
+        map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[t]oggle git show [b]lame line' })
+        map('n', '<leader>tD', gitsigns.preview_hunk_inline, { desc = '[t]oggle git show [D]eleted' })
       end,
     },
   },
