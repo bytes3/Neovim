@@ -4,6 +4,7 @@ return {
     'saghen/blink.cmp',
     event = 'VimEnter',
     version = '1.*',
+    priority = 994,
     dependencies = {
       -- Snippet Engine
       {
@@ -34,6 +35,7 @@ return {
       'folke/lazydev.nvim',
       'alexandre-abrioux/blink-cmp-npm.nvim',
       'mgalliou/blink-cmp-tmux',
+      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
@@ -77,7 +79,17 @@ return {
       completion = {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
-        documentation = { auto_show = true, auto_show_delay_ms = 500 },
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 200,
+          window = {
+            border = 'rounded',
+          },
+        },
+        menu = {
+          border = 'rounded',
+          winhighlight = 'Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None',
+        },
       },
 
       sources = {
@@ -86,12 +98,33 @@ return {
           'path',
           'snippets',
           'lazydev',
-          'npm',
           'buffer',
           'tmux',
+          'npm',
+        },
+        per_filetype = {
+          sql = { 'dadbod', 'tmux', 'buffer', 'snippets' },
+          plsql = { 'dadbod', 'tmux', 'buffer', 'snippets' },
+          mysql = { 'dadbod', 'tmux', 'buffer', 'snippets' },
         },
         providers = {
+          -- path = {
+          --   module = 'blink.cmp.sources.path',
+          --   score_offset = 3,
+          --   opts = {
+          --     -- took from :help blink-cmp-mode-specific-configurations
+          --     trailing_slash = true,
+          --     label_trailing_slash = true,
+          --     get_cwd = function(context)
+          --       return vim.fn.expand(('#%d:p:h'):format(context.bufnr))
+          --     end,
+          --     show_hidden_files_by_default = true,
+          --     -- Treat `/path` as starting from the current working directory (cwd) instead of the root of your filesystem
+          --     ignore_root_slash = false,
+          --   },
+          -- },
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
           npm = {
             name = 'npm',
             module = 'blink-cmp-npm',
@@ -121,6 +154,10 @@ return {
             },
           },
         },
+
+        -- Minimum number of characters in the keyword to trigger all providers
+        -- May also be `function(ctx: blink.cmp.Context): number`
+        min_keyword_length = 0,
       },
 
       snippets = { preset = 'luasnip' },

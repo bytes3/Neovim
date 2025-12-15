@@ -28,6 +28,7 @@ vim.opt.undofile = true
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.smartindent = false
 
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
@@ -51,6 +52,10 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+
+-- Some file watchers like in Bun.js '--watch' chrash the program
+-- this will solve the issue
+vim.opt.backupcopy = 'yes'
 
 vim.o.autoread = true
 

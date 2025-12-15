@@ -4,6 +4,7 @@ return {
       'purarue/gitsigns-yadm.nvim',
     },
     'lewis6991/gitsigns.nvim',
+    priority = 1000,
     opts = {
       _on_attach_pre = function(bufnr, callback)
         if vim.fn.executable 'yadm' == 1 then
@@ -22,6 +23,11 @@ return {
       },
       on_attach = function(bufnr)
         local gitsigns = require 'gitsigns'
+
+        if vim.api.nvim_buf_get_name(bufnr):match 'gitcommit' then
+          -- Don't attach to specific buffers whose name matches a pattern
+          return false
+        end
 
         local function map(mode, l, r, opts)
           opts = opts or {}

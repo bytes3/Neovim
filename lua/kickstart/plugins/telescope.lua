@@ -2,6 +2,7 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
+    priority = 998,
     dependencies = {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for install instructions

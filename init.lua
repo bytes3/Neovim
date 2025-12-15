@@ -9,8 +9,8 @@ require 'custom.options'
 
 require 'custom.remaps'
 
-require 'custom.autocmds'
-
 require 'custom.commands'
 
 require 'custom.lazyvim'
+
+require 'custom.autocmds'

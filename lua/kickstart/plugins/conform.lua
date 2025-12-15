@@ -1,8 +1,10 @@
 return {
   { -- Autoformat
     'stevearc/conform.nvim',
+    cond = true,
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
+    priority = 995,
     keys = {
       {
         '<leader>f',
@@ -39,8 +41,8 @@ return {
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         -- Use the "*" filetype to run formatters on all filetypes.
-        javascript = { { 'prettier' } },
-        typescript = { { 'prettier' } },
+        javascript = { 'prettier' },
+        typescript = { 'prettier' },
         -- ['*'] = { 'codespell' },
         ['_'] = { 'trim_whitespace' },
       },

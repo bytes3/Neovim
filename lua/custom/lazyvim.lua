@@ -1,6 +1,3 @@
--- TODO: Replace lspconfig framework with Neovim lspconfig
-vim.deprecate = function() end
-
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -12,22 +9,22 @@ require('lazy').setup({
   rocks = {
     hererocks = true,
   },
+  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+
+  -- Lazy
   {
-    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
-    -- used for completion, annotations and signatures of Neovim apis
-    'folke/lazydev.nvim',
-    ft = 'lua',
-    opts = {
-      library = {
-        -- Load luvit types when the `vim.uv` word is found
-        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-        'lazy.nvim',
-      },
-    },
+    'olimorris/onedarkpro.nvim',
+    priority = 1002, -- Ensure it loads first
+    cond = false,
+    config = function()
+      -- somewhere in your config:
+      vim.cmd 'colorscheme onedark'
+    end,
   },
 
   {
     'rebelot/kanagawa.nvim',
+    priority = 1003, -- Ensure it loads first
     config = function()
       vim.cmd.colorscheme 'kanagawa-dragon'
     end,
@@ -40,7 +37,7 @@ require('lazy').setup({
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
     'folke/tokyonight.nvim',
     cond = false,
-    priority = 1000, -- make sure to load this before all the other start plugins
+    priority = 1001, -- make sure to load this before all the other start plugins
     config = function()
       -- Load the colorscheme here
       vim.cmd.colorscheme 'tokyonight-night'
@@ -51,7 +48,7 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = true } },
+  { 'folke/todo-comments.nvim', priority = 994, dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = true } },
 
   { import = 'kickstart.plugins' },
   { import = 'custom.plugins' },
