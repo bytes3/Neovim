@@ -17,6 +17,7 @@ return {
       'rafamadriz/friendly-snippets',
       {
         'pmizio/typescript-tools.nvim',
+        cond = false,
         dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
         opts = {},
       },
@@ -177,6 +178,7 @@ return {
         --
         tailwindcss = {},
         bashls = {},
+        vtsls = {},
 
         lua_ls = {
           -- cmd = {...},
@@ -234,6 +236,8 @@ return {
           'lua_ls@3.15.0', --FIXME: revert when lua_language_server is fiexed
         }, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
+        -- automatic_enable = false,
+        -- automatic_setup = false,
       }
     end,
 

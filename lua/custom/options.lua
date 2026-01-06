@@ -60,3 +60,5 @@ vim.opt.backupcopy = 'yes'
 vim.o.autoread = true
 
 vim.g.have_nerd_font = true
+
+vim.go.tabclose = 'left'
