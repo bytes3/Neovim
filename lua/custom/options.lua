@@ -62,3 +62,5 @@ vim.o.autoread = true
 vim.g.have_nerd_font = true
 
 vim.go.tabclose = 'left'
+
+vim.opt.winborder = 'rounded'

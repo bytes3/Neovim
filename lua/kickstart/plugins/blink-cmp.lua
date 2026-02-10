@@ -35,6 +35,7 @@ return {
       'folke/lazydev.nvim',
       'alexandre-abrioux/blink-cmp-npm.nvim',
       'mgalliou/blink-cmp-tmux',
+      'onsails/lspkind.nvim',
       { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
     },
     --- @module 'blink.cmp'
@@ -89,13 +90,50 @@ return {
         menu = {
           border = 'rounded',
           winhighlight = 'Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None',
+
+          cmdline_position = function()
+            if vim.g.ui_cmdline_pos ~= nil then
+              local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
+              return { pos[1] - 1, pos[2] }
+            end
+            local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
+            return { vim.o.lines - height, 0 }
+          end,
+
+          draw = {
+            columns = {
+              { 'kind_icon', 'label', gap = 1 },
+              { 'kind' },
+            },
+            components = {
+              kind_icon = {
+                text = function(item)
+                  local kind = require('lspkind').symbol_map[item.kind] or ''
+                  return kind .. ' '
+                end,
+                highlight = 'CmpItemKind',
+              },
+              label = {
+                text = function(item)
+                  return item.label
+                end,
+                highlight = 'CmpItemAbbr',
+              },
+              kind = {
+                text = function(item)
+                  return item.kind
+                end,
+                highlight = 'CmpItemKind',
+              },
+            },
+          },
         },
       },
 
       sources = {
         default = {
-          'lsp',
           'path',
+          'lsp',
           'snippets',
           'lazydev',
           'buffer',
@@ -151,6 +189,22 @@ return {
               -- used
               triggered_only = false,
               trigger_chars = { '.' },
+            },
+            path = {
+              name = 'path',
+              module = 'blink.cmp.sources.path',
+              enabled = true,
+              score_offset = 3,
+              opts = {
+                trailing_slash = false,
+                label_trailing_slash = true,
+                get_cwd = function(ctx)
+                  return vim.fn.expand(('#%d:p:h').format(ctx.bufnr))
+                end,
+                show_show_hidden_files_by_default = true,
+              },
+              should_show_items = true,
+              fallbacks = { 'lazydev' },
             },
           },
         },

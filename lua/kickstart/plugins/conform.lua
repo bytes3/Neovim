@@ -45,6 +45,9 @@ return {
         -- Use the "*" filetype to run formatters on all filetypes.
         javascript = { 'prettier' },
         typescript = { 'prettier' },
+        javascriptreact = { 'prettier' },
+        typescriptreact = { 'prettier' },
+
         -- ['*'] = { 'codespell' },
         ['_'] = { 'trim_whitespace' },
       },
