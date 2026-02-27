@@ -27,13 +27,13 @@ return {
     'NickvanDyke/opencode.nvim',
     dependencies = {
       -- Recommended for `ask()` and `select()`.
-      -- Required for `snacks` provider.
+      -- Required for `snacks` server.
       ---@module 'snacks' <- Loads `snacks.nvim` types for configuration intellisense.
       { 'folke/snacks.nvim', opts = { input = {}, picker = {}, terminal = {} } },
     },
     config = function()
       vim.g.opencode_opts = {
-        provider = {
+        server = {
           enabled = 'tmux',
           tmux = {
             -- ...

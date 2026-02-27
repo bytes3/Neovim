@@ -190,22 +190,22 @@ return {
               triggered_only = false,
               trigger_chars = { '.' },
             },
-            path = {
-              name = 'path',
-              module = 'blink.cmp.sources.path',
-              enabled = true,
-              score_offset = 3,
-              opts = {
-                trailing_slash = false,
-                label_trailing_slash = true,
-                get_cwd = function(ctx)
-                  return vim.fn.expand(('#%d:p:h').format(ctx.bufnr))
-                end,
-                show_show_hidden_files_by_default = true,
-              },
-              should_show_items = true,
-              fallbacks = { 'lazydev' },
+          },
+          path = {
+            name = 'path',
+            module = 'blink.cmp.sources.path',
+            enabled = true,
+            score_offset = 3,
+            opts = {
+              trailing_slash = false,
+              label_trailing_slash = true,
+              get_cwd = function(ctx)
+                return vim.fn.expand(('#%d:p:h').format(ctx.bufnr))
+              end,
+              show_hidden_files_by_default = true,
             },
+            should_show_items = true,
+            fallbacks = { 'lazydev' },
           },
         },
 
