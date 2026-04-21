@@ -1,7 +1,13 @@
+---@module 'lazy'
+---@type LazySpec
 return {
   {
     'stevearc/oil.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons', { 'JezerM/oil-lsp-diagnostics.nvim', opts = {} } },
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+      { 'JezerM/oil-lsp-diagnostics.nvim', opts = {} },
+      { 'malewicz1337/oil-git.nvim', opts = {} },
+    },
     opts = {
       default_file_explorer = true,
       view_options = {
@@ -46,9 +52,7 @@ return {
             local entry = oil.get_cursor_entry()
             local dir = oil.get_current_dir()
 
-            if not entry or not dir then
-              return
-            end
+            if not entry or not dir then return end
 
             local relpath = vim.fn.fnamemodify(dir, ':.')
 

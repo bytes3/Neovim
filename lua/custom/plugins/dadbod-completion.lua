@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 return {
   {
     'kristijanhusak/vim-dadbod-ui',
@@ -16,9 +18,7 @@ return {
 
       vim.api.nvim_create_autocmd('FileType', {
         pattern = 'dbout',
-        callback = function()
-          vim.wo.foldenable = false
-        end,
+        callback = function() vim.wo.foldenable = false end,
       })
 
       vim.keymap.set('n', '<leader>td', '<CMD>tabnew | DBUI<CR>')

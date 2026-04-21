@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 return {
   {
     'dmmulroy/tsc.nvim',
@@ -9,21 +11,19 @@ return {
     end,
   },
   {
-    'windwp/nvim-ts-autotag',
+    'dmmulroy/ts-error-translator.nvim',
     opts = {
-      opts = {
-        -- Defaults
-        enable_close = true, -- Auto close tags
-        enable_rename = true, -- Auto rename pairs of tags
-        enable_close_on_slash = false, -- Auto close on trailing </
-      },
-      -- Also override individual filetype configs, these take priority.
-      -- Empty by default, useful if one of the "opts" global settings
-      -- doesn't work well in a specific filetype
-      per_filetype = {
-        ['html'] = {
-          enable_close = false,
-        },
+      -- Auto-attach to LSP servers for TypeScript diagnostics (default: true)
+      auto_attach = true,
+
+      -- LSP server names to translate diagnostics for (default shown below)
+      servers = {
+        'astro',
+        'svelte',
+        'ts_ls',
+        'typescript-tools',
+        'volar',
+        'vtsls',
       },
     },
   },
