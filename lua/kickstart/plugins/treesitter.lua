@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -5,6 +7,28 @@ return {
     priority = 992,
     build = ':TSUpdate',
     branch = 'main',
+    dependencies = {
+      { 'folke/ts-comments.nvim', opts = {}, event = 'VeryLazy' },
+      {
+        'windwp/nvim-ts-autotag',
+        opts = {
+          opts = {
+            -- Defaults
+            enable_close = true, -- Auto close tags
+            enable_rename = true, -- Auto rename pairs of tags
+            enable_close_on_slash = false, -- Auto close on trailing </
+          },
+          -- Also override individual filetype configs, these take priority.
+          -- Empty by default, useful if one of the "opts" global settings
+          -- doesn't work well in a specific filetype
+          per_filetype = {
+            ['html'] = {
+              enable_close = false,
+            },
+          },
+        },
+      },
+    },
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     config = function()
       local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }

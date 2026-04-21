@@ -1,3 +1,5 @@
+---@module 'lazy'
+---@type LazySpec
 return {
   {
     'nvim-telescope/telescope.nvim',
@@ -8,9 +10,7 @@ return {
       { -- If encountering errors, see telescope-fzf-native README for install instructions
         'nvim-telescope/telescope-fzf-native.nvim',
         build = 'make',
-        cond = function()
-          return vim.fn.executable 'make' == 1
-        end,
+        cond = function() return vim.fn.executable 'make' == 1 end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
       { 'nvim-tree/nvim-web-devicons', cond = vim.g.have_nerd_font },
@@ -66,15 +66,16 @@ return {
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[s]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = '[b]uffers' })
       vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = '[ ] Search Files' })
-      vim.keymap.set('n', '<leader>sf', function()
-        builtin.find_files { hidden = true, no_ignore = true }
-      end, { desc = '[s]earch [f]iles With Hidden & Ignored' })
+      vim.keymap.set(
+        'n',
+        '<leader>sf',
+        function() builtin.find_files { hidden = true, no_ignore = true } end,
+        { desc = '[s]earch [f]iles With Hidden & Ignored' }
+      )
       -- TODO: Add history command
 
       -- Shortcut for searching your neovim configuration files
-      vim.keymap.set('n', '<leader>sn', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[s]earch [n]eovim files' })
+      vim.keymap.set('n', '<leader>sn', function() builtin.find_files { cwd = vim.fn.stdpath 'config' } end, { desc = '[s]earch [n]eovim files' })
 
       -- This runs on LSP attach per buffer (see main LSP attach function in 'neovim/nvim-lspconfig' config for more info,
       -- it is better explained there). This allows easily switching between pickers if you prefer using something else!

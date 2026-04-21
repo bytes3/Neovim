@@ -1,4 +1,5 @@
--- TODO: Add snippits for other language
+---@module 'lazy'
+---@type LazySpec
 return {
   { -- Autocompletion
     'saghen/blink.cmp',
