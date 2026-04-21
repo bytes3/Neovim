@@ -1,21 +1,24 @@
-vim.deprecate = function()
-  -- TODO: replace tailwindcss.tools
-end
+-- vim.deprecate = function()
+-- end
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
   vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-end ---@diagnostic disable-next-line: undefined-field
-vim.opt.rtp:prepend(lazypath)
+end
+---@type vim.Option
+local rtp = vim.opt.rtp
+rtp:prepend(lazypath)
 
 require('lazy').setup({
-  rocks = {
-    hererocks = true,
-  },
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  { 'NMAC427/guess-indent.nvim', opts = {} },
 
-  -- Lazy
+  {
+    'rebelot/kanagawa.nvim',
+    priority = 1003, -- Ensure it loads first
+    config = function() vim.cmd.colorscheme 'kanagawa-dragon' end,
+  },
+
   {
     'olimorris/onedarkpro.nvim',
     priority = 1002, -- Ensure it loads first
@@ -23,14 +26,6 @@ require('lazy').setup({
     config = function()
       -- somewhere in your config:
       vim.cmd 'colorscheme onedark'
-    end,
-  },
-
-  {
-    'rebelot/kanagawa.nvim',
-    priority = 1003, -- Ensure it loads first
-    config = function()
-      vim.cmd.colorscheme 'kanagawa-dragon'
     end,
   },
 
@@ -52,7 +47,15 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', priority = 994, dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = true } },
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    ---@module 'todo-comments'
+    ---@type TodoOptions
+    ---@diagnostic disable-next-line: missing-fields
+    opts = { signs = true },
+  },
 
   { import = 'kickstart.plugins' },
   { import = 'custom.plugins' },

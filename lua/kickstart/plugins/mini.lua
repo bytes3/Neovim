@@ -13,9 +13,10 @@ return {
 
       require('mini.align').setup {
         mappings = {
-          start = 'La',
-          start_with_preview = 'LA',
+          around_next = 'aa',
+          inside_next = 'ii',
         },
+        n_lines = 500,
       }
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
@@ -46,9 +47,7 @@ return {
       -- default behavior. For example, here we set the section for
       -- cursor location to LINE:COLUMN
       ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
+      statusline.section_location = function() return '%2l:%-2v' end
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim

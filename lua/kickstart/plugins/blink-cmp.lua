@@ -14,9 +14,7 @@ return {
           -- Build Step is needed for regex support in snippets.
           -- This step is not supported in many windows environments.
           -- Remove the below condition to re-enable on windows.
-          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
-            return
-          end
+          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then return end
           return 'make install_jsregexp'
         end)(),
         dependencies = {
@@ -25,15 +23,11 @@ return {
           --    https://github.com/rafamadriz/friendly-snippets
           {
             'rafamadriz/friendly-snippets',
-            config = function()
-              require('luasnip.loaders.from_vscode').lazy_load()
-            end,
+            config = function() require('luasnip.loaders.from_vscode').lazy_load() end,
           },
         },
         opts = {},
       },
-      'folke/lazydev.nvim',
-      'alexandre-abrioux/blink-cmp-npm.nvim',
       'mgalliou/blink-cmp-tmux',
       'onsails/lspkind.nvim',
       { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
@@ -114,15 +108,11 @@ return {
                 highlight = 'CmpItemKind',
               },
               label = {
-                text = function(item)
-                  return item.label
-                end,
+                text = function(item) return item.label end,
                 highlight = 'CmpItemAbbr',
               },
               kind = {
-                text = function(item)
-                  return item.kind
-                end,
+                text = function(item) return item.kind end,
                 highlight = 'CmpItemKind',
               },
             },
@@ -135,10 +125,7 @@ return {
           'path',
           'lsp',
           'snippets',
-          'lazydev',
           'buffer',
-          'tmux',
-          'npm',
         },
         per_filetype = {
           sql = { 'dadbod', 'tmux', 'buffer', 'snippets' },
@@ -146,51 +133,7 @@ return {
           mysql = { 'dadbod', 'tmux', 'buffer', 'snippets' },
         },
         providers = {
-          -- path = {
-          --   module = 'blink.cmp.sources.path',
-          --   score_offset = 3,
-          --   opts = {
-          --     -- took from :help blink-cmp-mode-specific-configurations
-          --     trailing_slash = true,
-          --     label_trailing_slash = true,
-          --     get_cwd = function(context)
-          --       return vim.fn.expand(('#%d:p:h'):format(context.bufnr))
-          --     end,
-          --     show_hidden_files_by_default = true,
-          --     -- Treat `/path` as starting from the current working directory (cwd) instead of the root of your filesystem
-          --     ignore_root_slash = false,
-          --   },
-          -- },
-          lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
           dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
-          npm = {
-            name = 'npm',
-            module = 'blink-cmp-npm',
-            async = true,
-            -- optional - make blink-cmp-npm completions top priority (see `:h blink.cmp`)
-            score_offset = 100,
-            -- optional - blink-cmp-npm config
-            ---@module "blink-cmp-npm"
-            ---@type blink-cmp-npm.Options
-            opts = {
-              ignore = {},
-              only_semantic_versions = true,
-              only_latest_version = false,
-            },
-          },
-          tmux = {
-            module = 'blink-cmp-tmux',
-            name = 'tmux',
-            -- default options
-            opts = {
-              all_panes = false,
-              capture_history = false,
-              -- only suggest completions from `tmux` if the `trigger_chars` are
-              -- used
-              triggered_only = false,
-              trigger_chars = { '.' },
-            },
-          },
           path = {
             name = 'path',
             module = 'blink.cmp.sources.path',
@@ -199,13 +142,11 @@ return {
             opts = {
               trailing_slash = false,
               label_trailing_slash = true,
-              get_cwd = function(ctx)
-                return vim.fn.expand(('#%d:p:h').format(ctx.bufnr))
-              end,
+              get_cwd = function(ctx) return vim.fn.expand(('#%d:p:h').format(ctx.bufnr)) end,
               show_hidden_files_by_default = true,
             },
             should_show_items = true,
-            fallbacks = { 'lazydev' },
+            fallbacks = { 'buffer' },
           },
         },
 

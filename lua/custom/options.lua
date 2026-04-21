@@ -3,10 +3,7 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.bo.softtabstop = 2
 
--- [[ Setting options ]]
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
+vim.g.have_nerd_font = true
 
 vim.opt.number = true
 
@@ -29,6 +26,7 @@ vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.smartindent = false
+vim.opt.smarttab = false
 
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
@@ -36,6 +34,9 @@ vim.opt.signcolumn = 'yes'
 -- Decrease update time
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 400
+
+-- Preview substitutions live, as you type!
+vim.o.inccommand = 'split'
 
 -- Configure how new splits should be opened
 vim.opt.splitright = true
@@ -59,8 +60,21 @@ vim.opt.backupcopy = 'yes'
 
 vim.o.autoread = true
 
-vim.g.have_nerd_font = true
-
 vim.go.tabclose = 'left'
 
 vim.opt.winborder = 'rounded'
+
+vim.diagnostic.config {
+  severity_sort = true,
+  float = { border = 'rounded', source = 'if_many' },
+  underline = { severity = vim.diagnostic.severity.ERROR },
+  signs = vim.g.have_nerd_font and {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '󰅚 ',
+      [vim.diagnostic.severity.WARN] = '󰀪 ',
+      [vim.diagnostic.severity.INFO] = '󰋽 ',
+      [vim.diagnostic.severity.HINT] = '󰌶 ',
+    },
+  } or {},
+  virtual_text = false,
+}
