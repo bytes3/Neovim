@@ -24,17 +24,17 @@ return {
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       require('mini.surround').setup {
         mappings = {
-          add = 'ys', -- Add surrounding in Normal and Visual modes
-          delete = 'ds', -- Delete surrounding
-          replace = 'yr', -- Replace surrounding
+          add = 'ys',
+          delete = 'ds',
+          replace = 'cs',
 
-          find = 'sf', -- Find surrounding (to the right)
-          find_left = 'sF', -- Find surrounding (to the left)
+          find = 'sf',
+          find_left = 'sF',
 
-          highlight = 'sh', -- Highlight surrounding
+          highlight = 'sh',
 
-          suffix_last = 'l', -- Suffix to search with "prev" method
-          suffix_next = 'n', -- Suffix to search with "next" method
+          suffix_last = 'l',
+          suffix_next = 'n',
         },
       }
 
@@ -56,29 +56,3 @@ return {
     end,
   },
 }
-
--- DEFAULTS KEYBINDING FOR ALIGN (La):
--- {
---   modifiers = {
---     -- Main option modifiers
---     ['s] = --<function: enter split pattern>,
---     ['j'] = --<function: choose justify side>,
---     ['m'] = --<function: enter merge delimiter>,
---
---     -- Modifiers adding pre-steps
---     ['f'] = --<function: filter parts by entering Lua expression>,
---     ['i'] = --<function: ignore some split matches>,
---     ['p'] = --<function: pair parts>,
---     ['t'] = --<function: trim parts>,
---
---     -- Delete some last pre-step
---     ['<BS>'] = --<function: delete some last pre-step>,
---
---     -- Special configurations for common splits
---     ['='] = --<function: enhanced setup for '='>,
---     [','] = --<function: enhanced setup for ','>,
---     ['|'] = --<function: enhanced setup for '|'>,
---     [' '] = --<function: enhanced setup for ' '>,
---   },
---
--- }

@@ -55,7 +55,8 @@ return {
 
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap
-          map('K', function() vim.lsp.buf.hover { border = 'single', max_height = 54, max_width = 80 } end, 'Hover Documentation')
+          map('K', function() vim.lsp.buf.hover { border = 'single', max_height = 54, max_width = 80 } end,
+            'Hover Documentation')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header
@@ -95,7 +96,9 @@ return {
           --
           -- This may be unwanted, since they displace some of your code
           if client and client:supports_method('textDocument/inlayHint', event.buf) then
-            map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[t]oggle Inlay [h]ints')
+            map('<leader>th',
+              function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end,
+              '[t]oggle Inlay [h]ints')
           end
         end,
       })
@@ -130,6 +133,11 @@ return {
         },
         prettier = {},
         cssls = {},
+        clangd = {},
+        jsonls = {},
+        zls = {},
+        basedpyright = {},
+        docker_language_server = {},
         -- jdtls = {},
 
         lua_ls = {

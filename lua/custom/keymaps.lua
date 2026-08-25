@@ -18,7 +18,8 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 
-vim.keymap.set('n', '<leader>S', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[S]ubstitute the whole file' })
+vim.keymap.set('n', '<leader>S', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+  { desc = '[S]ubstitute the whole file' })
 
 -- don't save into \" register
 vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]])
