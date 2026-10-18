@@ -119,25 +119,14 @@ return {
         -- tailwindcss = {},
         bashls = {},
         vtsls = {},
-        texlab = {
-          settings = {
-            texlab = {
-              build = {
-                onSave = true,
-              },
-              chktex = {
-                onOpenAndSave = true,
-              },
-            },
-          },
-        },
-        prettier = {},
+        biome = {},
         cssls = {},
         clangd = {},
         jsonls = {},
         zls = {},
         basedpyright = {},
         docker_language_server = {},
+        tailwindcss = {},
         -- jdtls = {},
 
         lua_ls = {

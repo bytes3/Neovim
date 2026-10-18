@@ -1,5 +1,3 @@
----@module 'lazy'
----@type LazySpec
 return {
   {
     'nvim-telescope/telescope.nvim',
@@ -10,10 +8,15 @@ return {
       { -- If encountering errors, see telescope-fzf-native README for install instructions
         'nvim-telescope/telescope-fzf-native.nvim',
         build = 'make',
-        cond = function() return vim.fn.executable 'make' == 1 end,
+        cond = function()
+          return vim.fn.executable 'make' == 1
+        end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-      { 'nvim-tree/nvim-web-devicons', cond = vim.g.have_nerd_font },
+      {
+        'nvim-tree/nvim-web-devicons',
+        cond = vim.g.have_nerd_font
+      },
     },
     config = function()
       -- The easiest way to use telescope, is to start by doing something like:
@@ -66,16 +69,29 @@ return {
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[s]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = '[b]uffers' })
       vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = '[ ] Search Files' })
-      vim.keymap.set(
-        'n',
-        '<leader>sf',
-        function() builtin.find_files { hidden = true, no_ignore = true } end,
-        { desc = '[s]earch [f]iles With Hidden & Ignored' }
-      )
+
+      vim.keymap.set('n', '<leader>sfh', function()
+        builtin.find_files { hidden = true }
+      end, { desc = '[s]earch [f]iles With [h]idden & Ignored' })
+
+      vim.keymap.set("n", "<leader>sb", function()
+        local file = vim.api.nvim_buf_get_name(0)
+        local dir = vim.fs.dirname(file)
+
+        require("telescope.builtin").live_grep({
+          cwd = dir,
+        })
+      end, { desc = "Grep from buffer directory" })
+
+      vim.keymap.set('n', '<leader>sf', function()
+        builtin.find_files { hidden = true, no_ignore = true }
+      end, { desc = '[s]earch [f]iles With Hidden & Ignored' })
       -- TODO: Add history command
 
       -- Shortcut for searching your neovim configuration files
-      vim.keymap.set('n', '<leader>sn', function() builtin.find_files { cwd = vim.fn.stdpath 'config' } end, { desc = '[s]earch [n]eovim files' })
+      vim.keymap.set('n', '<leader>sn', function()
+        builtin.find_files { cwd = vim.fn.stdpath 'config' }
+      end, { desc = '[s]earch [n]eovim files' })
 
       -- This runs on LSP attach per buffer (see main LSP attach function in 'neovim/nvim-lspconfig' config for more info,
       -- it is better explained there). This allows easily switching between pickers if you prefer using something else!
@@ -99,7 +115,7 @@ return {
           -- Jump to the type of the word under your cursor.
           -- Useful when you're not sure what type a variable is and you want to see
           -- the definition of its *type*, not where it was *defined*.
-          vim.keymap.set('n', 'gtd', builtin.lsp_type_definitions, { buffer = buf, desc = '[gtd] Goto type Definition' })
+          -- vim.keymap.set('n', 'gD', builtin.lsp_type_definitions, { buffer = buf, desc = '[gD] Goto type Definition' })
         end,
       })
     end,

@@ -29,7 +29,6 @@ return {
         },
         opts = {},
       },
-      'mgalliou/blink-cmp-tmux',
       'onsails/lspkind.nvim',
       { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
     },
@@ -59,6 +58,11 @@ return {
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
         preset = 'default',
+        ['<Tab>'] = { 'fallback' },
+        ['<S-Tab>'] = { 'fallback' },
+        ['<C-l>'] = { 'snippet_forward' },
+        ['<C-h>'] = { 'snippet_backward' },
+
         ['<C-r>'] = { 'scroll_documentation_up', 'fallback' },
         ['<C-g>'] = { 'scroll_documentation_down', 'fallback' },
 
@@ -129,9 +133,9 @@ return {
           'buffer',
         },
         per_filetype = {
-          sql = { 'dadbod', 'tmux', 'buffer', 'snippets' },
-          plsql = { 'dadbod', 'tmux', 'buffer', 'snippets' },
-          mysql = { 'dadbod', 'tmux', 'buffer', 'snippets' },
+          sql = { 'dadbod', 'buffer', 'snippets' },
+          plsql = { 'dadbod', 'buffer', 'snippets' },
+          mysql = { 'dadbod', 'buffer', 'snippets' },
         },
         providers = {
           dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },

@@ -33,9 +33,9 @@ return {
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        html = { 'prettier' },
-        json = { 'prettier' },
-        jsonc = { 'prettier' },
+        html = { 'biome' },
+        json = { 'biome' },
+        jsonc = { 'biome' },
         c = { 'clang-format' },
         -- Conform can also run multiple formatters sequentially
         python = { 'isort', 'black' },
@@ -43,10 +43,10 @@ return {
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         -- Use the "*" filetype to run formatters on all filetypes.
-        javascript = { 'prettier' },
-        typescript = { 'prettier' },
-        javascriptreact = { 'prettier' },
-        typescriptreact = { 'prettier' },
+        javascript = { 'biome' },
+        typescript = { 'biome' },
+        javascriptreact = { 'biome' },
+        typescriptreact = { 'biome' },
 
         -- ['*'] = { 'codespell' },
         ['_'] = { 'trim_whitespace' },

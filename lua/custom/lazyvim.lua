@@ -14,14 +14,21 @@ require('lazy').setup({
   { 'NMAC427/guess-indent.nvim', opts = {} },
 
   {
+    'cocopon/iceberg.vim',
+    priority = 1003, -- Ensure it loads first
+    config = function() vim.cmd.colorscheme 'iceberg' end,
+  },
+
+  {
     'rebelot/kanagawa.nvim',
     priority = 1003, -- Ensure it loads first
+    cond = false,
     config = function() vim.cmd.colorscheme 'kanagawa-dragon' end,
   },
 
   {
     'olimorris/onedarkpro.nvim',
-    priority = 1002, -- Ensure it loads first
+    priority = 1003, -- Ensure it loads first
     cond = false,
     config = function()
       -- somewhere in your config:
