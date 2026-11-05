@@ -8,6 +8,10 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
 vim.keymap.set({ 'n', 'v' }, '<leader>Y', [["+Y]])
 
+vim.keymap.set('x', '<leader>A', function()
+  require('custom.scripts.pi').send_visual_selection()
+end, { desc = 'Send selection to Pi' })
+
 vim.keymap.set({ 'n' }, '<leader>o', '<cmd>Oil<CR>')
 
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
