@@ -1,0 +1,24 @@
+services:
+  neovim:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: local/neovim-alpine:0.12
+    init: true
+    stdin_open: true
+    tty: true
+    working_dir: /workspace
+    environment:
+      TERM: ${TERM:-xterm-256color}
+      COLORTERM: ${COLORTERM:-truecolor}
+    volumes:
+      - ${WORKSPACE:-.}:/workspace
+      - .:/root/.config/nvim
+      - nvim-data:/root/.local/share/nvim
+      - nvim-state:/root/.local/state/nvim
+      - nvim-cache:/root/.cache/nvim
+
+volumes:
+  nvim-data:
+  nvim-state:
+  nvim-cache:
