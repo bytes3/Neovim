@@ -1,58 +1,56 @@
----@module 'lazy'
----@type LazySpec
-return {
-  { -- Collection of various small independent plugins/modules
-    'echasnovski/mini.nvim',
-    priority = 993,
-    config = function()
-      -- Better Around/Inside textobjects
-      --
-      -- Examples:
-      --  - va)  - [V]isually select [A]round [)]paren
-      --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
-      --  - ci'  - [C]hange [I]nside [']quote
-      require('mini.ai').setup { n_lines = 500 }
-
-      require('mini.align').setup {
-        mappings = {
-          around_next = 'aa',
-          inside_next = 'ii',
-        },
-        n_lines = 500,
-      }
-
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      require('mini.surround').setup {
-        mappings = {
-          add = 'ys',
-          delete = 'ds',
-          replace = 'cs',
-
-          find = 'sf',
-          find_left = 'sF',
-
-          highlight = 'sh',
-
-          suffix_last = 'l',
-          suffix_next = 'n',
-        },
-      }
-
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function() return '%2l:%-2v' end
-
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
-    end,
-  },
+vim.pack.add {
+  'https://github.com/nvim-mini/mini.nvim',
 }
+
+-- If a nerd font is available, load the icons module for pretty icons in various plugins.
+if vim.g.have_nerd_font then
+  require('mini.icons').setup()
+  -- Used for backwards compatibility with plugins that require `nvim-web-devicons` (e.g. telescope.nvim)
+  MiniIcons.mock_nvim_web_devicons()
+end
+
+-- Better Around/Inside textobjects
+--
+-- Examples:
+--  - va)  - [V]isually select [A]round [)]paren
+--  - yiiq - [Y]ank [I]nside [I]+1 [Q]uote
+--  - ci'  - [C]hange [I]nside [']quote
+require('mini.ai').setup {
+  -- NOTE: Avoid conflicts with the built-in incremental selection mappings on Neovim>=0.12 (see `:help treesitter-incremental-selection`)
+  mappings = {
+    around_next = 'aa',
+    inside_next = 'ii',
+  },
+  n_lines = 500,
+}
+
+require('mini.surround').setup(
+  {
+    mappings = {
+      add = 'ys',
+      delete = 'ds',
+      replace = 'cs',
+
+      find = 'sf',
+      find_left = 'sF',
+
+      highlight = 'sh',
+
+      suffix_last = 'l',
+      suffix_next = 'n',
+    }
+  }
+)
+
+-- Simple and easy statusline.
+--  You could remove this setup call if you don't like it,
+--  and try some other statusline plugin
+local statusline = require 'mini.statusline'
+-- Set `use_icons` to true if you have a Nerd Font
+statusline.setup { use_icons = vim.g.have_nerd_font }
+
+-- You can configure sections in the statusline by overriding their
+-- default behavior. For example, here we set the section for
+-- cursor location to LINE:COLUMN
+---@diagnostic disable-next-line: duplicate-set-field
+statusline.section_location = function() return '%2l:%-2v' end

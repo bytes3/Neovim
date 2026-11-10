@@ -9,7 +9,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
 vim.keymap.set({ 'n', 'v' }, '<leader>Y', [["+Y]])
 
 vim.keymap.set('x', '<leader>A', function()
-  require('custom.scripts.pi').send_visual_selection()
+  require('lua.custom.lua.pi').send_visual_selection()
 end, { desc = 'Send selection to Pi' })
 
 vim.keymap.set({ 'n' }, '<leader>o', '<cmd>Oil<CR>')
@@ -37,3 +37,5 @@ vim.keymap.set({ 'n', 'v' }, 'g<C-b>', 'g<C-a>')
 vim.keymap.set('n', 'q', '<nop>', { noremap = true })
 vim.keymap.set('n', 'Q', 'q', { noremap = true, desc = 'Record macro' })
 vim.keymap.set('n', '<M-q>', 'Q', { noremap = true, desc = 'Replay last register' })
+
+vim.keymap.set('n', '<leader>td', '<CMD>tabnew | DBUI<CR>')

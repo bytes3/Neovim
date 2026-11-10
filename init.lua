@@ -8,6 +8,8 @@ require 'custom.keymaps'
 
 require 'custom.commands'
 
-require 'custom.lazyvim'
+require 'custom.pack'
 
 require 'custom.autocmds'
+
+require 'custom.scripts.pi'

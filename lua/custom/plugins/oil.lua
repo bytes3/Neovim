@@ -1,65 +1,39 @@
----@module 'lazy'
----@type LazySpec
-return {
-  {
-    'stevearc/oil.nvim',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-      { 'JezerM/oil-lsp-diagnostics.nvim', opts = {} },
-      { 'malewicz1337/oil-git.nvim', opts = {} },
+vim.pack.add {
+  'https://github.com/stevearc/oil.nvim',
+  'https://github.com/JezerM/oil-lsp-diagnostics.nvim',
+  'https://github.com/malewicz1337/oil-git.nvim',
+}
+
+require('oil').setup {
+  default_file_explorer = true,
+  view_options = {
+    show_hidden = true,
+  },
+  keymaps = {
+    ['<C-p>'] = 'actions.open_external',
+    ['<C-v>'] = 'actions.preview',
+    ['yp'] = {
+      desc = 'Copy filepath to system clipboard',
+      callback = function()
+        require('oil.actions').copy_entry_path.callback()
+        vim.fn.setreg('+', vim.fn.getreg(vim.v.register))
+      end,
     },
-    opts = {
-      default_file_explorer = true,
-      view_options = {
-        show_hidden = true,
-      },
-      -- Configuration for the floating action confirmation window
-      confirmation = {
-        -- Width dimensions can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
-        -- min_width and max_width can be a single value or a list of mixed integer/float types.
-        -- max_width = {100, 0.8} means "the lesser of 100 columns or 80% of total"
-        max_width = 0.9,
-        -- min_width = {40, 0.4} means "the greater of 40 columns or 40% of total"
-        min_width = { 40, 0.4 },
-        -- optionally define an integer/float for the exact width of the preview window
-        width = nil,
-        -- Height dimensions can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
-        -- min_height and max_height can be a single value or a list of mixed integer/float types.
-        -- max_height = {80, 0.9} means "the lesser of 80 columns or 90% of total"
-        max_height = 0.9,
-        -- min_height = {5, 0.1} means "the greater of 5 columns or 10% of total"
-        min_height = { 5, 0.1 },
-        -- optionally define an integer/float for the exact height of the preview window
-        height = nil,
-        border = 0.5,
-        win_options = {
-          winblend = 1,
-        },
-      },
-      keymaps = {
-        ['<C-p>'] = 'actions.open_external',
-        ['<C-v>'] = 'actions.preview',
-        ['yp'] = {
-          desc = 'Copy filepath to system clipboard',
-          callback = function()
-            require('oil.actions').copy_entry_path.callback()
-            vim.fn.setreg('+', vim.fn.getreg(vim.v.register))
-          end,
-        },
-        ['yr'] = { -- Yank full file path
-          callback = function()
-            local oil = require 'oil'
-            local entry = oil.get_cursor_entry()
-            local dir = oil.get_current_dir()
+    ['yr'] = { -- Yank full file path
+      callback = function()
+        local oil = require 'oil'
+        local entry = oil.get_cursor_entry()
+        local dir = oil.get_current_dir()
 
-            if not entry or not dir then return end
+        if not entry or not dir then return end
 
-            local relpath = vim.fn.fnamemodify(dir, ':.')
+        local relpath = vim.fn.fnamemodify(dir, ':.')
 
-            vim.fn.setreg('+', relpath .. entry.name)
-          end,
-        },
-      },
+        vim.fn.setreg('+', relpath .. entry.name)
+      end,
     },
   },
 }
+
+require("oil-git").setup({})
+require("oil-lsp-diagnostics").setup({})

@@ -1,5 +1,6 @@
 {
-    "diagnostics.disable": [
-        "param-type-mismatch"
-    ]
+    "diagnostics.disable": ["param-type-mismatch"],
+    "diagnostics.globals": ["vim",
+        "gh"],
+    "runtime.version": "LuaJIT"
 }
