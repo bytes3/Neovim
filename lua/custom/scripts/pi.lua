@@ -10,9 +10,7 @@ local function run(args, opts)
   return vim.trim(result.stdout or '')
 end
 
-local function project_root(file)
-  return vim.fs.root(file, '.git') or vim.fn.getcwd()
-end
+local function project_root(file) return vim.fs.root(file, '.git') or vim.fn.getcwd() end
 
 local function pi_pane(root)
   local output, err = run {
@@ -22,16 +20,12 @@ local function pi_pane(root)
     '-F',
     '#{window_id}\t#{pane_id}\t#{pane_current_command}\t#{pane_current_path}',
   }
-  if not output then
-    return nil, err
-  end
+  if not output then return nil, err end
 
   root = vim.fs.normalize(root)
   for line in output:gmatch '[^\n]+' do
     local window, pane, command, path = line:match '^([^\t]+)\t([^\t]+)\t([^\t]+)\t(.*)$'
-    if command == 'pi' and vim.fs.normalize(path) == root then
-      return { window = window, pane = pane }
-    end
+    if command == 'pi' and vim.fs.normalize(path) == root then return { window = window, pane = pane } end
   end
 end
 
@@ -62,14 +56,10 @@ local function create_pi_pane(root)
       'pi',
     }
   end
-  if not output then
-    return nil, err
-  end
+  if not output then return nil, err end
 
   local window, pane = output:match '^([^\t]+)\t([^\t]+)$'
-  if not pane then
-    return nil, 'tmux did not return the new pane id'
-  end
+  if not pane then return nil, 'tmux did not return the new pane id' end
 
   -- Give Pi time to initialize its TUI and enable bracketed paste mode.
   vim.wait(2000, function()
@@ -85,22 +75,16 @@ local function paste_prompt(pane, prompt)
   local buffer_name = ('nvim-pi-%d-%d'):format(vim.fn.getpid(), vim.uv.hrtime())
   local temp = vim.fn.tempname()
   local file, open_err = io.open(temp, 'wb')
-  if not file then
-    return nil, open_err
-  end
+  if not file then return nil, open_err end
   file:write(prompt)
   file:close()
 
   local _, load_err = run { 'tmux', 'load-buffer', '-b', buffer_name, temp }
   os.remove(temp)
-  if load_err then
-    return nil, load_err
-  end
+  if load_err then return nil, load_err end
 
   local _, paste_err = run { 'tmux', 'paste-buffer', '-d', '-p', '-r', '-b', buffer_name, '-t', pane }
-  if paste_err then
-    return nil, paste_err
-  end
+  if paste_err then return nil, paste_err end
   return true
 end
 
@@ -131,18 +115,10 @@ function M.send_visual_selection()
   local selection = table.concat(vim.fn.getregion(start_pos, end_pos, { type = vim.fn.mode() }), '\n')
   local root = project_root(file)
   local relative_file = vim.fs.relpath(root, file) or file
-  local location = start_line == end_line and ('line %d'):format(start_line)
-      or ('lines %d-%d'):format(start_line, end_line)
+  local location = start_line == end_line and ('line %d'):format(start_line) or ('lines %d-%d'):format(start_line, end_line)
   local fence = code_fence(selection)
   local language = vim.bo.filetype
-  local prompt = ('Regarding `%s`, %s:\n\n%s%s\n%s\n%s\n\n'):format(
-    relative_file,
-    location,
-    fence,
-    language,
-    selection,
-    fence
-  )
+  local prompt = ('Regarding `%s`, %s:\n\n%s%s\n%s\n%s\n\n'):format(relative_file, location, fence, language, selection, fence)
 
   local target, find_err = pi_pane(root)
   if not target then
@@ -162,5 +138,7 @@ function M.send_visual_selection()
   run { 'tmux', 'select-window', '-t', target.window }
   run { 'tmux', 'select-pane', '-t', target.pane }
 end
+
+vim.keymap.set('x', '<leader>A', function() require('custom.scripts.pi').send_visual_selection() end, { desc = 'Send selection to Pi' })
 
 return M

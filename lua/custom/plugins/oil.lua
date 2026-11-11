@@ -35,5 +35,5 @@ require('oil').setup {
   },
 }
 
-require("oil-git").setup({})
-require("oil-lsp-diagnostics").setup({})
+require('oil-git').setup {}
+require('oil-lsp-diagnostics').setup {}

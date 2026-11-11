@@ -9,13 +9,6 @@ vim.pack.add {
 local gitsigns = require 'gitsigns'
 
 gitsigns.setup {
-  signs = {
-    add = { text = '+' }, ---@diagnostic disable-line: missing-fields
-    change = { text = '~' }, ---@diagnostic disable-line: missing-fields
-    delete = { text = '_' }, ---@diagnostic disable-line: missing-fields
-    topdelete = { text = '‾' }, ---@diagnostic disable-line: missing-fields
-    changedelete = { text = '~' }, ---@diagnostic disable-line: missing-fields
-  },
   _on_attach_pre = function(bufnr, callback)
     if vim.fn.executable("yadm") == 1 then
       require("gitsigns-yadm").yadm_signs(callback, { bufnr = bufnr })

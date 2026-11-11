@@ -8,10 +8,6 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
 vim.keymap.set({ 'n', 'v' }, '<leader>Y', [["+Y]])
 
-vim.keymap.set('x', '<leader>A', function()
-  require('lua.custom.lua.pi').send_visual_selection()
-end, { desc = 'Send selection to Pi' })
-
 vim.keymap.set({ 'n' }, '<leader>o', '<cmd>Oil<CR>')
 
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
@@ -22,8 +18,7 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', 'n', 'nzzzv')
 vim.keymap.set('n', 'N', 'Nzzzv')
 
-vim.keymap.set('n', '<leader>S', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-  { desc = '[S]ubstitute the whole file' })
+vim.keymap.set('n', '<leader>S', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[S]ubstitute the whole file' })
 
 -- don't save into \" register
 vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]])
